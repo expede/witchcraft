@@ -18,18 +18,23 @@ defclass Witchcraft.Semigroupoid do
   @type t :: any()
 
   defmacro __using__(opts \\ []) do
-    {:ok, new_opts} =
-      Keyword.get_and_update(opts, :except, fn except ->
-        {:ok, [apply: 2] ++ (except || [])}
-      end)
+    overrides = [apply: 2]
+    excepts = Keyword.get(opts, :except, [])
 
     if Access.get(opts, :override_kernel, true) do
+      kernel_imports = Macro.escape(except: overrides -- excepts)
+      module_imports = Macro.escape(except: excepts)
+
       quote do
-        import Kernel, unquote(new_opts)
-        import unquote(__MODULE__), unquote(opts)
+        import Kernel, unquote(kernel_imports)
+        import unquote(__MODULE__), unquote(module_imports)
       end
     else
-      quote do: import(unquote(__MODULE__), unquote(new_opts))
+      module_imports = Macro.escape(except: Enum.uniq(overrides ++ excepts))
+
+      quote do
+        import unquote(__MODULE__), unquote(module_imports)
+      end
     end
   end
 

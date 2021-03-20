@@ -34,10 +34,12 @@ defclass Witchcraft.Traversable do
   @type link :: (any() -> Traversable.t())
 
   defmacro __using__(opts \\ []) do
+    module_imports = [except: Keyword.get(opts, :except, [])]
+
     quote do
       use Witchcraft.Foldable, unquote(opts)
       use Witchcraft.Functor, unquote(opts)
-      import unquote(__MODULE__), unquote(opts)
+      import unquote(__MODULE__), unquote(module_imports)
     end
   end
 

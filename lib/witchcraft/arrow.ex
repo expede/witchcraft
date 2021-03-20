@@ -44,9 +44,11 @@ defclass Witchcraft.Arrow do
   @type t :: fun()
 
   defmacro __using__(opts \\ []) do
+    module_imports = [except: Keyword.get(opts, :except, [])]
+
     quote do
       use Witchcraft.Category, unquote(opts)
-      import unquote(__MODULE__), unquote(opts)
+      import unquote(__MODULE__), unquote(module_imports)
     end
   end
 

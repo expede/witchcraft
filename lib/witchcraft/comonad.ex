@@ -28,9 +28,11 @@ defclass Witchcraft.Comonad do
   @type t :: any()
 
   defmacro __using__(opts \\ []) do
+    module_imports = [except: Keyword.get(opts, :except, [])]
+
     quote do
       use Witchcraft.Extend, unquote(opts)
-      import unquote(__MODULE__), unquote(opts)
+      import unquote(__MODULE__), unquote(module_imports)
     end
   end
 

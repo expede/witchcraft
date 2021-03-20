@@ -43,9 +43,11 @@ defclass Witchcraft.Chain do
   @type link :: (any() -> Chain.t())
 
   defmacro __using__(opts \\ []) do
+    module_imports = [except: Keyword.get(opts, :except, [])]
+
     quote do
       use Witchcraft.Apply, unquote(opts)
-      import unquote(__MODULE__), unquote(opts)
+      import unquote(__MODULE__), unquote(module_imports)
     end
   end
 
