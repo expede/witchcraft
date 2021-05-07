@@ -30,7 +30,7 @@ defclass Witchcraft.Foldable do
   alias __MODULE__
   alias Witchcraft.{Apply, Ord, Monad, Monoid, Semigroup, Unit}
 
-  import Kernel, except: [length: 1, max: 2, min: 2]
+  import Kernel, except: [length: 1, max: 2, min: 2, then: 2]
   import Exceptional.Safe, only: [safe: 1]
 
   require Foldable.EmptyError

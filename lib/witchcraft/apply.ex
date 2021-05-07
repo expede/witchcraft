@@ -378,8 +378,8 @@ defclass Witchcraft.Apply do
   ## Examples
 
       iex> [1, 2, 3]
-      ...> |> then([4, 5, 6])
-      ...> |> then([7, 8, 9])
+      ...> |> Witchcraft.Apply.then([4, 5, 6])
+      ...> |> Witchcraft.Apply.then([7, 8, 9])
       [
         7, 8, 9,
         7, 8, 9,
@@ -392,7 +392,7 @@ defclass Witchcraft.Apply do
         7, 8, 9
       ]
 
-      iex> {1, 2, 3} |> then({4, 5, 6}) |> then({7, 8, 9})
+      iex> {1, 2, 3} |> Witchcraft.Apply.then({4, 5, 6}) |> Witchcraft.Apply.then({7, 8, 9})
       {12, 15, 9}
 
   """
